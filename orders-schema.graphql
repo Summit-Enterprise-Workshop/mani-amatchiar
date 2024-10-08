@@ -1,7 +1,7 @@
 extend schema
   @link(
     url: "https://specs.apollo.dev/federation/v2.8"
-    import: ["@key", "@tag", "@shareable", "@authenticated"]
+    import: ["@key", "@tag", "@shareable", "@authenticated", "@requiresScopes"]
   )
 
 type Query {
@@ -23,7 +23,7 @@ type Order @key(fields: "id") {
   """
   The user who made the purchase
   """
-  buyer: User!
+  buyer: User! @requiresScopes(scopes: [["order:buyer"]])
 
   """
   A list of all the items they purchased. This is the Variants, not the Products so we know exactly which
